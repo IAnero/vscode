@@ -43,7 +43,11 @@ RUN apt-get update && apt-get install -y \
     fonts-noto-cjk \
     # Locales pour UTF-8
     locales \
-    zsh
+    zsh \
+    # pour match le dark theme (eviter bug couleur blanche)
+    adwaita-qt \
+    gtk2-engines-murrine \
+    gnome-themes-extra
 
 # Configuration des locales pour le support UTF-8 et emojis
 RUN locale-gen en_US.UTF-8 && \
@@ -54,6 +58,7 @@ RUN wget -qO /tmp/vscode.deb 'https://code.visualstudio.com/sha/download?build=s
     && apt-get install -y /tmp/vscode.deb \
     && rm /tmp/vscode.deb \
     && rm -rf /var/lib/apt/lists/*
+    
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 # RUN chsh -s $(which zsh) root

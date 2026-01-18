@@ -22,4 +22,6 @@ services:
     group_add:
       - audio
       - video
+    environment:
+      - GTK_THEME=Adwaita:dark
     network_mode: "host"
