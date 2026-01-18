@@ -4,3 +4,4 @@ libsdl2-ttf-dev
 libsdl2-mixer-dev
 valgrind
 vim
+gdb
