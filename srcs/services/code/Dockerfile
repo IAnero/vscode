@@ -35,19 +35,19 @@ RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
     make \
-    # Polices
+    # Polices (reduced set to save space)
     fonts-liberation \
+    fonts-noto-core \
     fonts-noto-color-emoji \
-    fonts-symbola \
-    fonts-noto \
-    fonts-noto-cjk \
     # Locales pour UTF-8
     locales \
     zsh \
     # pour match le dark theme (eviter bug couleur blanche)
     adwaita-qt \
     gtk2-engines-murrine \
-    gnome-themes-extra
+    gnome-themes-extra \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Configuration des locales pour le support UTF-8 et emojis
 RUN locale-gen en_US.UTF-8 && \
@@ -55,9 +55,11 @@ RUN locale-gen en_US.UTF-8 && \
 
 # Téléchargement et installation de VSCode
 RUN wget -qO /tmp/vscode.deb 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' \
+    && apt-get update \
     && apt-get install -y /tmp/vscode.deb \
+    && apt-get clean \
     && rm /tmp/vscode.deb \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* /tmp/*
     
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
